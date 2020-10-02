@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarService } from '../services/navbar.service';
+import { Router } from '@angular/router';
+
+import { NavbarService } from 'src/app/services/navbar.service';
 
 export enum Categories {
   top = 'Top Games',
@@ -25,19 +27,21 @@ export class NavbarComponent implements OnInit {
   public categories: string[] = Object.keys(Categories);
   public selectedCategory: Categories;
 
-  constructor(private navbarService: NavbarService) { }
+  constructor(private router: Router, private navbarService: NavbarService) { }
 
   ngOnInit(): void {
     this.updateSelectedCategory();
   }
 
   public updateSelectedCategory(): void {
-    this.navbarService.getSelectedCategory().subscribe(category => this.selectedCategory = category);
+    this.navbarService.getSelectedCategory().subscribe(category => {
+      console.log(123);
+      this.selectedCategory = category});
   }
 
   public selectCategory(category: Categories): void {
     this.selectedCategory = category;
-    this.navbarService.setSelectedCategory(category);
+    this.router.navigate(['jackpot', category]);
   }
 
 }
