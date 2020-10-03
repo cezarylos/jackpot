@@ -1,1 +1,7 @@
-<p>jackpot-game works!</p>
+<div class="game-container">
+    <p>{{game.jackpot}}</p>
+    <img *ngIf="!game.imgError" (onStateChange)="handleImgError($event)" [lazyLoad]="game.image"/>
+    <div *ngIf="game.imgError" class="fallback">
+        <span>{{game.name}}</span>
+    </div>
+</div>

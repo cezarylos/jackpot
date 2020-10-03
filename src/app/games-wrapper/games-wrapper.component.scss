@@ -1,0 +1,15 @@
+@import "src/assets/helpers";
+@import "src/assets/variables";
+
+.games-container {
+    background: $beige;
+    padding: px(16) px(100);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    &:after {
+        content: '';
+        flex: auto;
+    }
+}

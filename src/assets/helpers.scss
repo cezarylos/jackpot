@@ -1,0 +1,4 @@
+@function px($size) {
+    $result: $size / 16;
+    @return $result * 1rem;
+}

@@ -1,47 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { NavbarService } from 'src/app/services/navbar.service';
-
-export enum Categories {
-  top = 'Top Games',
-  new = 'New Games',
-  slots = 'Slots',
-  jackpots = 'Jackpots',
-  live = 'Live',
-  blackjack = 'Blackjack',
-  roulette = 'Roulette',
-  table = 'Table',
-  poker = 'Poker',
-  other = 'Other'
-}
+import { Category } from 'src/app/jackpot.typings';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
 
-  public categoriesEnum = Categories;
-  public categories: string[] = Object.keys(Categories);
-  public selectedCategory: Categories;
+    @Input() selectedCategory: Category;
 
-  constructor(private router: Router, private navbarService: NavbarService) { }
+    public categoriesEnum = Category;
+    public categories: string[] = Object.keys(Category);
 
-  ngOnInit(): void {
-    this.updateSelectedCategory();
-  }
+    constructor(private router: Router) {
+    }
 
-  public updateSelectedCategory(): void {
-    this.navbarService.getSelectedCategory().subscribe(category => {
-      console.log(123);
-      this.selectedCategory = category});
-  }
-
-  public selectCategory(category: Categories): void {
-    this.selectedCategory = category;
-    this.router.navigate(['jackpot', category]);
-  }
+    public selectCategory(category: string): void {
+        this.router.navigate(['jackpot', category]).finally();
+    }
 
 }

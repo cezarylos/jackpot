@@ -1,5 +1,7 @@
 <div class="navbar-container">
-  <span *ngFor="let category of categories"
-    [ngClass]="{'selected' : category === selectedCategory}"
-   (click)="selectCategory(category)">{{categoriesEnum[category]}}</span>
+    <button *ngFor="let category of categories"
+            [ngClass]="{'selected' : category === selectedCategory}"
+            (click)="selectCategory(category)">
+        <span>{{categoriesEnum[category]}}</span>
+    </button>
 </div>

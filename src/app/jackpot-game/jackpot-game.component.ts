@@ -1,30 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { NavbarService } from '../services/navbar.service';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { StateChange } from 'ng-lazyload-image';
+
+import { GameFeed } from 'src/app/jackpot.typings';
 
 @Component({
-  selector: 'app-jackpot-game',
-  templateUrl: './jackpot-game.component.html',
-  styleUrls: ['./jackpot-game.component.scss']
+    selector: 'app-jackpot-game',
+    templateUrl: './jackpot-game.component.html',
+    styleUrls: ['./jackpot-game.component.scss']
 })
-export class JackpotGameComponent implements OnInit {
+export class JackpotGameComponent {
 
-  private category: string;
+    @Input() game: GameFeed;
 
-  constructor(private activatedRoute: ActivatedRoute, private navbarService: NavbarService) {
-    this.navbarService.getSelectedCategory().subscribe(category => console.log(category));
-   }
+    constructor(private cdr: ChangeDetectorRef) {
+    }
 
-  ngOnInit(): void {
-    this.setCategoryBasedOnPath();
-  }
-
-  setCategoryBasedOnPath(): void {
-    const { activatedRoute, navbarService } = this;
-    activatedRoute.params.subscribe((param: { category: string }) => {
-     const { category } = param;
-     navbarService.setSelectedCategory(category); 
-     this.category = category;
-    });
-  }
+    handleImgError(state: StateChange): void {
+        if (state.reason !== 'loading-failed') {
+         return;
+        }
+        this.game.imgError = true;
+        this.cdr.detectChanges();
+    }
 }

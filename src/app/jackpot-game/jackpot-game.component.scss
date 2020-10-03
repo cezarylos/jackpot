@@ -1,0 +1,28 @@
+@import "src/assets/helpers";
+@import "src/assets/variables";
+
+.game-container {
+    width: px(260);
+    height: px(154);
+    margin: px(8);
+
+    img, .fallback {
+        width: 100%;
+        height: auto;
+        border-radius: px(16);
+    }
+
+    .fallback {
+        height: 100%;
+        background: $secondary;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        span {
+            font-size: px(20);
+            color: $primary;
+            font-weight: 600;
+        }
+    }
+}
