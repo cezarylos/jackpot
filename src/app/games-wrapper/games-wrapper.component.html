@@ -1,4 +1,4 @@
 <app-navbar [selectedCategory]="category"></app-navbar>
 <div *ngIf="category && feedsReady" class="games-container">
-    <app-jackpot-game *ngFor="let game of gameFeedMap | keyvalue | category: category" [game]="game.value"></app-jackpot-game>
+    <app-jackpot-game *ngFor="let game of gameFeed | keyvalue | category: category" [game]="game.value"></app-jackpot-game>
 </div>

@@ -1,7 +1,10 @@
 <div class="game-container">
-    <p>{{game.jackpot}}</p>
+    <p *ngIf="game.jackpot" class="game-jackpot">{{game.jackpot | currency:'GBP':'symbol'}}</p>
     <img *ngIf="!game.imgError" (onStateChange)="handleImgError($event)" [lazyLoad]="game.image"/>
     <div *ngIf="game.imgError" class="fallback">
         <span>{{game.name}}</span>
+    </div>
+    <div *ngIf="game.ribbonText && !categoryTopOrNew" class="ribbon">
+        <div class="ribbon-inside">{{game.ribbonText}}</div>
     </div>
 </div>

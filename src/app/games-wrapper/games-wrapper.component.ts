@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
-import { Category, GameFeed, JackpotFeed } from 'src/app/jackpot.typings';
+import { Category, GameFeed, JackpotFeed, RibbonText } from 'src/app/jackpot.typings';
 import { FeedService } from 'src/app/services/feed/feed.service';
 
 @Component({
@@ -9,14 +10,14 @@ import { FeedService } from 'src/app/services/feed/feed.service';
     templateUrl: './games-wrapper.component.html',
     styleUrls: ['./games-wrapper.component.scss']
 })
-export class GamesWrapperComponent implements OnInit {
+export class GamesWrapperComponent implements OnInit, OnDestroy {
 
     public category: Category;
-    public gameFeedMap = new Map<string, GameFeed>();
     public feedsReady: boolean;
+    public gameFeed = new Map<string, GameFeed>();
+    private subscriptions = new Subscription();
 
-    constructor(private activatedRoute: ActivatedRoute,
-                private feedService: FeedService) {
+    constructor(private activatedRoute: ActivatedRoute, private feedService: FeedService) {
     }
 
     public ngOnInit(): void {
@@ -24,17 +25,26 @@ export class GamesWrapperComponent implements OnInit {
         this.prepareFeeds().finally();
     }
 
+    public ngOnDestroy(): void {
+        this.subscriptions.unsubscribe();
+    }
+
     private setCategoryBasedOnPath(): void {
-        this.activatedRoute.params.subscribe((params: { category: Category }) => {
-            this.category = params.category;
-        });
+        this.subscriptions.add(this.activatedRoute.params
+            .subscribe((params: { category: Category }) => this.category = params.category));
     }
 
     private async prepareFeeds(): Promise<void> {
         try {
             const gameFeed = await this.feedService.getGameFeed();
             gameFeed.forEach(game => {
-                this.gameFeedMap.set(game.id, game);
+                if (game.categories.includes(Category.new)) {
+                    game.ribbonText = RibbonText.new;
+                }
+                if (game.categories.includes(Category.top)) {
+                    game.ribbonText = RibbonText.top;
+                }
+                this.gameFeed.set(game.id, game);
             });
 
             const jackpotFeed = await this.feedService.getJackpotFeed();
@@ -48,13 +58,14 @@ export class GamesWrapperComponent implements OnInit {
 
     private updateJackpots(jackpotFeed: JackpotFeed[]): void {
         jackpotFeed.forEach(jackpot => {
-            const gameToUpdate = this.gameFeedMap.get(jackpot.game);
+            const gameToUpdate = this.gameFeed.get(jackpot.game);
+
             if (!gameToUpdate) {
                 return;
             }
 
             gameToUpdate.jackpot = jackpot.amount;
-            this.gameFeedMap.set(gameToUpdate.id, gameToUpdate);
+            this.gameFeed.set(gameToUpdate.id, gameToUpdate);
         });
     }
 }

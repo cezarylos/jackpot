@@ -2,6 +2,6 @@
     <button *ngFor="let category of categories"
             [ngClass]="{'selected' : category === selectedCategory}"
             (click)="selectCategory(category)">
-        <span>{{categoriesEnum[category]}}</span>
+        <span>{{categoryLabel[category]}}</span>
     </button>
 </div>

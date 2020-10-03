@@ -1,4 +1,17 @@
 export enum Category {
+    top = 'top',
+    new = 'new',
+    slots = 'slots',
+    jackpots = 'jackpots',
+    live = 'live',
+    blackjack = 'blackjack',
+    roulette = 'roulette',
+    table = 'table',
+    poker = 'poker',
+    other = 'other'
+}
+
+export enum CategoryLabel {
     top = 'Top Games',
     new = 'New Games',
     slots = 'Slots',
@@ -24,6 +37,12 @@ export interface GameFeed {
     id: string;
     jackpot: number;
     imgError?: boolean;
+    ribbonText?: RibbonText;
+}
+
+export enum RibbonText {
+    new = 'NEW',
+    top = 'TOP'
 }
 
 export interface JackpotFeed {

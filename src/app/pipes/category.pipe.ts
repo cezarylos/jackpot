@@ -11,7 +11,7 @@ export class CategoryPipe implements PipeTransform {
             return games;
         }
         return games.filter(game => {
-            if (Category[category] !== Category.other) {
+            if (category !== Category.other) {
                 return game.value.categories.includes(category);
             }
             return Object.values(OtherSubcategories).some(subcategory => {

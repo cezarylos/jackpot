@@ -5,11 +5,24 @@
     width: px(260);
     height: px(154);
     margin: px(8);
+    position: relative;
 
     img, .fallback {
         width: 100%;
         height: auto;
-        border-radius: px(16);
+        border-radius: px(8);
+    }
+
+    .game-jackpot {
+        position: absolute;
+        color: $white;
+        text-align: center;
+        right: 0;
+        left: 0;
+        top: px(16);
+        margin: auto;
+        font-size: px(32);
+        font-weight: 700;
     }
 
     .fallback {
@@ -24,5 +37,56 @@
             color: $primary;
             font-weight: 600;
         }
+    }
+
+    .ribbon {
+        height: px(115);
+        width: px(115);
+        position: absolute;
+        right: px(-8);
+        top: px(-8);
+        overflow: hidden;
+    }
+    .ribbon .ribbon-inside {
+        background: rgb(0,0,0);
+        background: linear-gradient(90deg, rgba(0,0,0,1) 0, rgba(141,198,63,1) 45%, rgba(236,255,209,1) 100%);
+        color: $white;
+        transform: rotate(45deg);
+        position: absolute;
+        right: px(-35);
+        top: px(15);
+        padding: px(10);
+        min-width: px(120);
+        text-align: center;
+        font-weight: 700;
+        font-size: px(20);
+    }
+    .ribbon .ribbon-inside:before {
+        width: 0;
+        height: 0;
+        border-left: px(7) solid transparent;
+        border-right: px(7) solid transparent;
+        border-bottom: px(10) solid #3e551b;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        content: "";
+        top: 35px;
+        transform: rotate(-45deg);
+    }
+    .ribbon .ribbon-inside:after {
+        width: 0;
+        height: 0;
+        border-top: px(7) solid transparent;
+        border-left: px(10) solid #3e551b;
+        border-bottom: px(7) solid transparent;
+        position: absolute;
+        left: 95%;
+        right: 0;
+        top: px(34);
+        bottom: 0;
+        content: '';
+        transform: rotate(-45deg);
     }
 }

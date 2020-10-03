@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Category } from 'src/app/jackpot.typings';
+import { Category, CategoryLabel } from 'src/app/jackpot.typings';
 
 @Component({
     selector: 'app-navbar',
@@ -13,7 +13,7 @@ export class NavbarComponent {
 
     @Input() selectedCategory: Category;
 
-    public categoriesEnum = Category;
+    public categoryLabel = CategoryLabel;
     public categories: string[] = Object.keys(Category);
 
     constructor(private router: Router) {
