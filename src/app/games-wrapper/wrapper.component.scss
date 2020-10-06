@@ -5,9 +5,9 @@
     display: flex;
     flex-flow: column;
     margin-top: 5rem;
+    background: $beige;
 
     .games-container {
-        background: $beige;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(px(260), max-content));
         grid-gap: px(8);
@@ -15,11 +15,31 @@
         justify-content: center;
         width: calc(100% - 6.25rem);
     }
+
+    .no-games {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+        padding: px(24);
+
+        h1 {
+            text-align: center;
+        }
+    }
 }
 
 @media (max-width: 960px) {
     .main-wrapper {
         flex-flow: row;
         margin-top: 0;
+
+        .no-games {
+            justify-content: flex-start;
+
+            h1 {
+                font-size: 4vw;
+            }
+        }
     }
 }

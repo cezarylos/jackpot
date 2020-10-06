@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { GamesWrapperComponent } from 'src/app/games-wrapper/games-wrapper.component';
+import { WrapperComponent } from 'src/app/games-wrapper/wrapper.component';
 import { CategoryResolverService } from 'src/app/services/categoryResolver/categoryResolver.service';
 
 const routes: Routes = [
-  { path: 'jackpot/:category', component: GamesWrapperComponent, resolve: { category: CategoryResolverService } },
+  { path: 'jackpot/:category', component: WrapperComponent, resolve: { category: CategoryResolverService } },
   { path: '**', redirectTo: 'jackpot/new' }
 ];
 

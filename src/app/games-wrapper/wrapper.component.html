@@ -1,0 +1,19 @@
+<div class="main-wrapper">
+    <app-navbar [selectedCategory]="category"></app-navbar>
+    <ng-container *ngIf="category && feedsReady">
+        <ng-container *ngIf="(gameFeed | keyvalue | category: category) as filteredFeed">
+            <div *ngIf="filteredFeed.length; else noGames" class="games-container">
+                <app-jackpot-game *ngFor="let game of filteredFeed; trackBy: trackByIdx"
+                                  [game]="game.value">
+                </app-jackpot-game>
+            </div>
+        </ng-container>
+    </ng-container>
+    <ngx-scrolltop></ngx-scrolltop>
+</div>
+<ng-template #noGames>
+    <div class="no-games">
+        <h1>Sorry, no available games in this category</h1>
+        <h1>Browse other categories and play exciting games!</h1>
+    </div>
+</ng-template>

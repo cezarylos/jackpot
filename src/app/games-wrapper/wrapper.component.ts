@@ -1,20 +1,21 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { Category, GameFeed, JackpotFeed, RibbonText } from 'src/app/jackpot.typings';
+import { Category, GameFeed, JackpotFeed, OtherSubcategories, RibbonText } from 'src/app/jackpot.typings';
 import { FeedService } from 'src/app/services/feed/feed.service';
 
 @Component({
-    selector: 'app-games-wrapper',
-    templateUrl: './games-wrapper.component.html',
-    styleUrls: ['./games-wrapper.component.scss']
+    selector: 'app-wrapper',
+    templateUrl: './wrapper.component.html',
+    styleUrls: ['./wrapper.component.scss']
 })
-export class GamesWrapperComponent implements OnInit, OnDestroy {
+export class WrapperComponent implements OnInit, OnDestroy {
 
     public category: Category;
     public feedsReady: boolean;
     public gameFeed = new Map<string, GameFeed>();
+    public test: GameFeed[];
     private subscriptions = new Subscription();
     private jackpotUpdater: number;
 
@@ -32,6 +33,10 @@ export class GamesWrapperComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {
         this.subscriptions.unsubscribe();
         clearInterval(this.jackpotUpdater);
+    }
+
+    public trackByIdx(index: number): number {
+        return index;
     }
 
     private setCategoryBasedOnPath(): void {
