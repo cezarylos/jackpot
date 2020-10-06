@@ -16,6 +16,7 @@ export class GamesWrapperComponent implements OnInit, OnDestroy {
     public feedsReady: boolean;
     public gameFeed = new Map<string, GameFeed>();
     private subscriptions = new Subscription();
+    private jackpotUpdater: number;
 
     constructor(private activatedRoute: ActivatedRoute, private feedService: FeedService) {
     }
@@ -23,10 +24,14 @@ export class GamesWrapperComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.setCategoryBasedOnPath();
         this.prepareFeeds().finally();
+
+        const UPDATE_TIME_IN_MS = 5000;
+        this.updateJackpotsEveryMs(UPDATE_TIME_IN_MS);
     }
 
     public ngOnDestroy(): void {
         this.subscriptions.unsubscribe();
+        clearInterval(this.jackpotUpdater);
     }
 
     private setCategoryBasedOnPath(): void {
@@ -59,13 +64,17 @@ export class GamesWrapperComponent implements OnInit, OnDestroy {
     private updateJackpots(jackpotFeed: JackpotFeed[]): void {
         jackpotFeed.forEach(jackpot => {
             const gameToUpdate = this.gameFeed.get(jackpot.game);
-
             if (!gameToUpdate) {
                 return;
             }
-
             gameToUpdate.jackpot = jackpot.amount;
-            this.gameFeed.set(gameToUpdate.id, gameToUpdate);
         });
+    }
+
+    private updateJackpotsEveryMs(timeInMs: number): void {
+        this.jackpotUpdater = setInterval(async () => {
+            const jackpotFeed = await this.feedService.getJackpotFeed();
+            this.updateJackpots(jackpotFeed);
+        }, timeInMs);
     }
 }

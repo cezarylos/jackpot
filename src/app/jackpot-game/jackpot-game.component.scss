@@ -7,13 +7,21 @@
     margin: px(8);
     position: relative;
 
+    &:hover {
+        .play-button {
+            visibility: visible;
+            opacity: 1;
+            transition: ease-in-out 250ms;
+        }
+    }
+
     img, .fallback {
         width: 100%;
         height: auto;
         border-radius: px(8);
     }
 
-    .game-jackpot {
+    .game-jackpot-amount {
         position: absolute;
         color: $white;
         text-align: center;
@@ -47,9 +55,10 @@
         top: px(-8);
         overflow: hidden;
     }
+
     .ribbon .ribbon-inside {
-        background: rgb(0,0,0);
-        background: linear-gradient(90deg, rgba(0,0,0,1) 0, rgba(141,198,63,1) 45%, rgba(236,255,209,1) 100%);
+        background: rgb(0, 0, 0);
+        background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0, rgba(141, 198, 63, 1) 45%, rgba(236, 255, 209, 1) 100%);
         color: $white;
         transform: rotate(45deg);
         position: absolute;
@@ -61,6 +70,7 @@
         font-weight: 700;
         font-size: px(20);
     }
+
     .ribbon .ribbon-inside:before {
         width: 0;
         height: 0;
@@ -75,6 +85,7 @@
         top: 35px;
         transform: rotate(-45deg);
     }
+
     .ribbon .ribbon-inside:after {
         width: 0;
         height: 0;
@@ -88,5 +99,69 @@
         bottom: 0;
         content: '';
         transform: rotate(-45deg);
+    }
+
+    .play-button {
+        visibility: hidden;
+        opacity: 0;
+        transition: ease-in-out 250ms;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: fit-content;
+        min-width: 50%;
+        min-height: 40%;
+        height: fit-content;
+        background: linear-gradient(90deg, rgb(96, 142, 57) 0, rgba(141,198,63,1) 33%, rgba(236,255,209,1) 100%);
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+        border: px(2) solid $secondary;
+        border-radius: px(16);
+        padding: px(4) px(16);
+        outline: none;
+        cursor: pointer;
+
+        &:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.4);
+            -webkit-transition: none;
+            -moz-transition: none;
+            -ms-transition: none;
+            -o-transition: none;
+            transition: none;
+            border-radius: px(16);
+        }
+
+        &:hover:after {
+            width: 120%;
+            background-color: rgba(255, 255, 255, 0);
+            -webkit-transition: all 0.3s ease-out;
+            -moz-transition: all 0.3s ease-out;
+            -ms-transition: all 0.3s ease-out;
+            -o-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out;
+        }
+
+        span {
+            font-size: px(16);
+            color: $secondary;
+            font-weight: 600;
+
+            &:first-child {
+                font-weight: 900;
+                font-size: px(30);
+                color: $secondary;
+            }
+        }
     }
 }

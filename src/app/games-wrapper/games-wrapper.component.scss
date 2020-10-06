@@ -1,15 +1,25 @@
 @import "src/assets/helpers";
 @import "src/assets/variables";
 
-.games-container {
-    background: $beige;
-    padding: px(16) px(100);
+.main-wrapper {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    flex-flow: column;
+    margin-top: 5rem;
 
-    &:after {
-        content: '';
-        flex: auto;
+    .games-container {
+        background: $beige;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(px(260), max-content));
+        grid-gap: px(8);
+        padding: px(16) px(50);
+        justify-content: center;
+        width: calc(100% - 6.25rem);
+    }
+}
+
+@media (max-width: 960px) {
+    .main-wrapper {
+        flex-flow: row;
+        margin-top: 0;
     }
 }

@@ -1,5 +1,9 @@
+@import "src/assets/variables";
+
 body {
     margin: 0;
+    height: 100vh;
+    background: $beige;
     * {
         font-family: sans-serif;
     }

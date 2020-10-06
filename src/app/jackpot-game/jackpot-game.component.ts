@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, DoCheck, Input, KeyValueDiffers, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StateChange } from 'ng-lazyload-image';
 import { Subscription } from 'rxjs';

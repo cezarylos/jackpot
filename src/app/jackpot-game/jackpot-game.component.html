@@ -1,5 +1,5 @@
-<div class="game-container">
-    <p *ngIf="game.jackpot" class="game-jackpot">{{game.jackpot | currency:'GBP':'symbol'}}</p>
+<div [attr.id]="game.id" class="game-container">
+    <p *ngIf="game.jackpot" class="game-jackpot-amount">{{game.jackpot | currency:'GBP':'symbol'}}</p>
     <img *ngIf="!game.imgError" (onStateChange)="handleImgError($event)" [lazyLoad]="game.image"/>
     <div *ngIf="game.imgError" class="fallback">
         <span>{{game.name}}</span>
@@ -7,4 +7,9 @@
     <div *ngIf="game.ribbonText && !categoryTopOrNew" class="ribbon">
         <div class="ribbon-inside">{{game.ribbonText}}</div>
     </div>
+
+    <button class="play-button">
+        <span>PLAY</span>
+        <span>{{game.name}}</span>
+    </button>
 </div>
