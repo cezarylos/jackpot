@@ -17,6 +17,6 @@ export class CategoryResolverService implements Resolve<string> {
         if (Object.keys(Category).includes(category)) {
             return null;
         }
-        this.router.navigate(['**']).finally();
+        this.router.navigate(['new']).finally();
     }
 }

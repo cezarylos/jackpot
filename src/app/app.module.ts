@@ -12,7 +12,6 @@ import { CategoryPipe } from 'src/app/pipes/category.pipe';
 import { FeedService } from 'src/app/services/feed/feed.service';
 import { NgxScrollTopModule } from 'ngx-scrolltop';
 
-
 @NgModule({
     declarations: [
         AppComponent,

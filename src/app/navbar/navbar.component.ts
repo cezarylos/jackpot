@@ -20,7 +20,7 @@ export class NavbarComponent {
     }
 
     public selectCategory(category: string): void {
-        this.router.navigate(['jackpot', category]).finally();
+        this.router.navigate([category]).finally();
     }
 
 }

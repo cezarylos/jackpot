@@ -5,8 +5,8 @@ import { WrapperComponent } from 'src/app/games-wrapper/wrapper.component';
 import { CategoryResolverService } from 'src/app/services/categoryResolver/categoryResolver.service';
 
 const routes: Routes = [
-  { path: 'jackpot/:category', component: WrapperComponent, resolve: { category: CategoryResolverService } },
-  { path: '**', redirectTo: 'jackpot/new' }
+  { path: ':category', component: WrapperComponent, resolve: { category: CategoryResolverService } },
+  { path: '**', redirectTo: 'new' }
 ];
 
 @NgModule({
